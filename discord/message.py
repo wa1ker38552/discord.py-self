@@ -1563,6 +1563,7 @@ class Message(PartialMessage, Hashable):
         'total_results',
         'analytics_id',
         'doing_deep_historical_index',
+        'json'
     )
 
     if TYPE_CHECKING:
@@ -1602,6 +1603,7 @@ class Message(PartialMessage, Hashable):
         self.application_id: Optional[int] = utils._get_as_snowflake(data, 'application_id')
         self.stickers: List[StickerItem] = [StickerItem(data=d, state=state) for d in data.get('sticker_items', [])]
         self.call: Optional[CallMessage] = None
+        self.json: dict = data
 
         try:
             # If the channel doesn't have a guild attribute, we handle that
